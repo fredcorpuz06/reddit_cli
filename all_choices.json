@@ -1,0 +1,115 @@
+[
+  {
+    "prompt": "Choose subreddit",
+    "url_segment": "/r/SUBREDDIT",
+    "next_prompts": [
+      {
+        "prompt": "Choose submission",
+        "url_segment": "/comments/SUBMISSIONID",
+        "next_prompts": [
+          {
+            "prompt": "Choose comment",
+            "url_segment": "/COMMENTID",
+            "next_prompts": [
+              {
+                "prompt": "Upvote",
+                "url_segment": "",
+                "next_prompts": []
+              },
+              {
+                "prompt": "Downvote",
+                "url_segment": "",
+                "next_prompts": []
+              },
+              {
+                "prompt": "Reply",
+                "url_segment": "",
+                "next_prompts": []
+              },
+              {
+                "prompt": "BACK",
+                "url_segment": "",
+                "next_prompts": []
+              }
+            ]
+          },
+          {
+            "prompt": "Sort by best",
+            "url_segment": "&sort=confidence",
+            "next_prompts": []
+          },
+          {
+            "prompt": "Sort by top",
+            "url_segment": "&sort=top",
+            "next_prompts": []
+          },
+          {
+            "prompt": "Sort by new",
+            "url_segment": "&sort=new",
+            "next_prompts": []
+          },
+          {
+            "prompt": "Sort by controversial",
+            "url_segment": "&sort=controversial",
+            "next_prompts": []
+          },
+          {
+            "prompt": "Sort by random",
+            "url_segment": "&sort=random",
+            "next_prompts": []
+          },
+          {
+            "prompt": "See more comments",
+            "url_segment": "?limit=NUMBER",
+            "next_prompts": []
+          },
+          {
+            "prompt": "BACK",
+            "url_segment": "",
+            "next_prompts": []
+          }
+        ]
+      },
+      {
+        "prompt": "Rank by hot",
+        "url_segment": "/hot",
+        "next_prompts": []
+      },
+      {
+        "prompt": "Rank by new",
+        "url_segment": "/new",
+        "next_prompts": []
+      },
+      {
+        "prompt": "Rank by controversial",
+        "url_segment": "/controversial",
+        "next_prompts": []
+      },
+      {
+        "prompt": "Rank by random",
+        "url_segment": "/random",
+        "next_prompts": []
+      },
+      {
+        "prompt": "See more submissions",
+        "url_segment": "?limit=NUMBER",
+        "next_prompts": []
+      },
+      {
+        "prompt": "BACK",
+        "url_segment": "",
+        "next_prompts": []
+      }
+    ]
+  },
+  {
+    "prompt": "View hot subreddits",
+    "url_segment": "/r/trendingsubreddits?limit=5",
+    "next_prompts": []
+  },
+  {
+    "prompt": "Exit program",
+    "url_segment": "",
+    "next_prompts": []
+  }
+]

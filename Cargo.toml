@@ -1,0 +1,17 @@
+[package]
+name = "hello_cargo"
+version = "0.1.0"
+authors = ["fredcorpuz06 <fcorpuz@wesleyan.edu>"]
+edition = "2018"
+
+[dependencies]
+hyper = "0.12"
+hyper-tls = "0.3.2"
+futures = "0.1.26"
+tokio = "0.1.18"
+pretty_env_logger = "0.3.0"
+serde_json = "1.0"
+serde = "1.0.9"
+serde_derive = "1.0.91"
+csv = "1.0.0"
+
