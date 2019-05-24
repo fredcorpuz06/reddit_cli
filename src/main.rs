@@ -1,5 +1,7 @@
-// #![deny(warnings)]
-// extern crate hyper;
+// This program is a CLI for the Reddit API that allows a user to 
+// parse through subreddits, submissions and comments by following
+// a series of prompts that appear on the command line.
+
 #[macro_use]
 extern crate serde_derive;
 extern crate serde;

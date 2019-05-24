@@ -5,6 +5,9 @@
 use crate::get_reddit;
 use crate::string_helpers::{self,UserChoices};
 
+// Given a Users response, this enum delineates if the program needs
+// to go Forward (deeper) into its question tree or Stay on the same
+// level or Back up a level
 pub enum MoveLevel {
     Forward,
     Stay,
@@ -12,7 +15,7 @@ pub enum MoveLevel {
 }
 
 
-
+// Handle the logic for the subreddit level
 // In: https://www.reddit.com
 // Out: https://www.reddit.com/r/Fitness.json?limit=5
 // Out: https://www.reddit.com/r/trendingsubreddits.json
@@ -34,7 +37,7 @@ pub fn subreddits_logic(
 
 }
 
-
+// Handle the logic for the submission level
 // In: https://www.reddit.com/r/Fitness.json?limit=5
 // Out: https://www.reddit.com/r/Fitness/comments/bpiq02.json?limit=5
 // Out: https://reddit.com/r/Fitness/new.json?limit=5
@@ -61,7 +64,7 @@ pub fn submissions_logic(
 
 }
 
-
+// Handle the logic for the comments level
 // In: https://www.reddit.com/r/Fitness/comments/bpiq02.json?limit=5
 // https://www.reddit.com/r/Fitness/comments/bpiq02/entsz9a.json?limit=5
 // https://www.reddit.com/r/Fitness/comments/bpiq02.json?limit=5&sort=hot
@@ -86,7 +89,7 @@ pub fn comments_logic(
     }
 }
 
-
+// Handle the logic for the comment interaction level
 pub fn comment_interact_logic(choice_set: &Vec<UserChoices>) -> MoveLevel {
     let _choice: usize = string_helpers::prompt_user_choice(&choice_set);
     println!("These features are not yet implemented \
