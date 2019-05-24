@@ -5,12 +5,80 @@ use hyper::rt::{self, Future, Stream};
 use hyper_tls::HttpsConnector;
 use serde_json::{self, Value};
 
+
+
 // Triage pretty print functions
 pub fn print_reddit_rez(raw_uri: &str, rez_type: RedditApiCall) {
     match rez_type {
         RedditApiCall::Subreddit => print_subreddit(raw_uri),
         RedditApiCall::Submission => print_submission(raw_uri),
         RedditApiCall::Comment => print_comment(raw_uri),
+    }
+}
+
+
+#[derive(Deserialize, Debug)]
+pub struct Subreddit {
+    kind: Value,
+    data: SubredditData,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct SubredditData {
+    modhash: Value,
+    dist: Value,
+    children: Vec<Submissions>
+
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Submissions {
+    data: SubmissionData
+}
+
+#[derive(Deserialize, Debug, Serialize)]
+pub struct SubmissionData {
+    #[serde(default)]
+    id: Value, 
+    #[serde(default)]
+    author: Value,
+    #[serde(default)]    
+    ups: Value,
+    #[serde(default)]
+    downs: Value,
+    #[serde(default)]
+    num_comments: Value,
+    #[serde(default)]
+    body: Value,
+    #[serde(default)]
+    selftext: Value,
+    #[serde(default)]
+    title: Value,
+}
+
+
+pub enum RedditApiCall {
+    Subreddit,
+    Submission,
+    Comment,
+}
+
+
+// Define a type so we can return multiple types of errors
+pub enum FetchError {
+    Http(hyper::Error),
+    Json(serde_json::Error),
+}
+
+impl From<hyper::Error> for FetchError {
+    fn from(err: hyper::Error) -> FetchError {
+        FetchError::Http(err)
+    }
+}
+
+impl From<serde_json::Error> for FetchError {
+    fn from(err: serde_json::Error) -> FetchError {
+        FetchError::Json(err)
     }
 }
 
@@ -166,74 +234,3 @@ pub fn fetch_json_vec(uri: hyper::Uri) -> impl Future<Item=Vec<Subreddit>, Error
         .from_err()
 }
 
-
-
-
-
-
-
-
-#[derive(Deserialize, Debug)]
-pub struct Subreddit {
-    kind: Value,
-    data: SubredditData,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct SubredditData {
-    modhash: Value,
-    dist: Value,
-    children: Vec<Submissions>
-
-}
-
-#[derive(Deserialize, Debug)]
-pub struct Submissions {
-    data: SubmissionData
-}
-
-#[derive(Deserialize, Debug, Serialize)]
-pub struct SubmissionData {
-    #[serde(default)]
-    id: Value, 
-    #[serde(default)]
-    author: Value,
-    #[serde(default)]    
-    ups: Value,
-    #[serde(default)]
-    downs: Value,
-    #[serde(default)]
-    num_comments: Value,
-    #[serde(default)]
-    body: Value,
-    #[serde(default)]
-    selftext: Value,
-    #[serde(default)]
-    title: Value,
-}
-
-// #[derive(Deserialize, Debug)]
-pub enum RedditApiCall {
-    Subreddit,
-    Submission,
-    Comment,
-}
-
-
-// Define a type so we can return multiple types of errors
-pub enum FetchError {
-    Http(hyper::Error),
-    Json(serde_json::Error),
-}
-
-impl From<hyper::Error> for FetchError {
-    fn from(err: hyper::Error) -> FetchError {
-        FetchError::Http(err)
-    }
-}
-
-impl From<serde_json::Error> for FetchError {
-    fn from(err: serde_json::Error) -> FetchError {
-        FetchError::Json(err)
-    }
-}

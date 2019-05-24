@@ -21,8 +21,21 @@ The documentation for the Reddit API can be found [here](https://www.reddit.com/
 * `post_reddit.rs` (dead code): Send POST Requests to Reddit API. Code not used because it is incomplete without being able to perform OAuth2 for Reddit API
 * `all_choices.json`: All possible user options/paths delineated here.
 * `sample_reddit_response/`: Directory of sample JSON responses from the Reddit API
+* `pseudocode_reddit_cli.py`: Working Python code for the user navigation and URI creation
 
 ## Initial Project Ambitions & Post-Project Reflections
+The initial goals for the project were to implement the following feature on the Reddit API.
+
+☑️ View subreddits, submission and comments
+
+❌ Upvote, downvote on specific comments
+
+❌ Post reply to a specific submission and/or comment on users account
+
+In hindsight, I had come to the following realizations: 1) It was a mistake to protype in Python because of the big difference how variables can (should) be used in the 2 languages. The most drastic difference was the mutable references to `String` that is possible in Rust. The creation of URI in my Python code was mostly based on string detection, insertions, deletions. After implementing these operations in Rust, I realized that `String` operations were only possible on mutable references. This required me to scrap most of my code at that point. 2) I should have put more thought into the underlying data structures that I used. In this project I have `enum MoveLevel`, `enum RedditApiCall`, `struct UserChoices`, `structs Subreddit, SubredditData, Submission, etc.`. There is a lot of overlap in the enums I used to navigate the menu. Also, the decoding using `serde_json` was difficult because the responses were deeply nested, which made it necessary to create a long chain; however, I believe this could be done in a cleaner way. 3) I should have been writing tests all throughout. I'd been struggling with parsing through datatypes throughout the entire duration of the project and more testing could have helped with that.
+
+Overall, I had a tedious but rewarding 1st project in Rust. I should have attempted to code smaller projects to get more familiar with the Rust's quirks and tricks before tackling this large project. Now, I feel that I can easily take on a project of similar magnitude and more intuitively implement the advanced Rust features described in the textbook.
+
 
 
 ## Example Usage
@@ -241,3 +254,6 @@ I guess I'm fucked then since I wake up at 5am and have the barbell on my back b
 Index of chosen? 0
 These features are not yet implemented because they require OAuth2 to make POST requests to the Reddit API
 ```
+
+## Contributors
+* Frederick Corpuz, student at Wesleyan University '20, designed and built the Reddit CLI in Rust

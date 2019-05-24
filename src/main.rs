@@ -15,6 +15,7 @@ use get_reddit::RedditApiCall;
 use string_helpers::UserChoices;
 use std::path::Path;
 
+// mod csv_writer;
 
 fn main() {
     // List all user choices at each branch
@@ -28,7 +29,8 @@ fn main() {
     let mut comment = String::new(); // entsz9a
     let mut comment_rank = String::new(); // &sort=confidence
     let mut view_preference: usize = 5;
-
+    // let mut records: Vec<Vec<str>> = Vec::new();
+    // csv_writer::write_to_csv(records);
     run(user_choices0,
         &mut subreddit, &mut submission, &mut submission_rank,
         &mut comment, &mut comment_rank, &mut view_preference)
